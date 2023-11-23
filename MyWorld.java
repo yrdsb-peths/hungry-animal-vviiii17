@@ -21,8 +21,7 @@ public class MyWorld extends World
         Elephant elephant = new Elephant();
         addObject(elephant, 300, 200);
         
-        Apple apple = new Apple();
-        addObject(apple, 300, 0);
+        createApple();
     }
     
     /**
@@ -32,7 +31,7 @@ public class MyWorld extends World
     {
         Apple apple = new Apple();
         int x = Greenfoot.getRandomNumber(600);
-        int y = Greenfoot.getRandomNumber(_limit_);
+        int y = Greenfoot.getRandomNumber(300);
         addObject(apple, 300, 0);
     }
 }
