@@ -11,6 +11,9 @@ public class MyWorld extends World
     public int score = 0;
     Label scoreLabel = new Label(0, 80);
     int level = 1;
+    int hp = 3;
+    Label hpLevel = new Label("hp:" + hp , 50);
+
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -27,6 +30,8 @@ public class MyWorld extends World
         // Create a label
         scoreLabel = new Label(0, 80);
         addObject(scoreLabel, 50, 50);
+        hpLevel = new Label("hp: " + hp , 50);
+        addObject(hpLevel, 170, 50);
         
         createApple();
     }
@@ -36,8 +41,17 @@ public class MyWorld extends World
      */
     public void gameOver()
     {
-        Label gameOverLabel = new Label("Game Over", 100);
-        addObject(gameOverLabel, 300, 200);
+        hp--;
+        if(hp <= 0)
+        {
+            Label gameOverLabel = new Label("Game Over", 100);
+            addObject(gameOverLabel, 300, 200);
+        }
+        else
+        {
+            hpUpdate();
+        }
+        
     }
     
     /**
@@ -64,5 +78,10 @@ public class MyWorld extends World
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(apple, x, y);
+    }
+    
+    public void hpUpdate()
+    {
+        hpLevel.setValue("hp: " + hp);
     }
 }
