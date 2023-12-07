@@ -81,6 +81,19 @@ public class MyWorld extends World
         }
     }
     
+    /*
+    public void hpIncrease()
+    {
+        // Increase hp for every 5 points gained
+        if(score % 2 == 0)
+        {
+            hp = 10;
+            //hpLevel.setValue("hp: " + 20);
+            gameOver();
+        }
+    }
+    */
+    
     /**
      * Increase score
      */
@@ -92,6 +105,8 @@ public class MyWorld extends World
         if(score % 5 == 0)
         {
             level += 1;
+            hp++;
+            hpLevel.setValue("hp: " + hp);
         }
     }
     

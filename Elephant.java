@@ -123,6 +123,7 @@ public class Elephant extends Actor
             MyWorld world = (MyWorld) getWorld();
             world.act();
             world.hpDecrease();
+            //world.hpIncrease();
             bombSound.play();
         }
     }
