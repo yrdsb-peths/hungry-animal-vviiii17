@@ -12,6 +12,7 @@ public class MyWorld extends World
     Label scoreLabel = new Label(0, 80);
     int level = 1;
     int hp = 3;
+    int appleCounter = 0;
     Label hpLevel = new Label("hp:" + hp , 50);
 
     /**
@@ -34,6 +35,20 @@ public class MyWorld extends World
         addObject(hpLevel, 170, 50);
         
         createApple();
+        
+    }
+    
+    /**
+     * bomb have 50% chance to appear around every 5 apple
+     */
+    
+    public void act()
+    {
+        if (appleCounter >= 5 && Greenfoot.getRandomNumber(100) < 50) 
+        {
+            createBomb();
+            appleCounter = 0;   // reset the number of apples
+        }
     }
     
     /**
@@ -41,17 +56,26 @@ public class MyWorld extends World
      */
     public void gameOver()
     {
+        Label gameOverLabel = new Label("Game Over", 100);
+        addObject(gameOverLabel, 300, 200);
+    }
+    
+    /**
+     * Decrease HP if apple hits the ground within 3 times
+     */
+    public void hpDecrease()
+    {
         hp--;
-        if(hp <= 0)
+        hpLevel.setValue("hp: " + hp);
+        
+        if(hp == 0)
         {
-            Label gameOverLabel = new Label("Game Over", 100);
-            addObject(gameOverLabel, 300, 200);
+            gameOver();
         }
         else
         {
-            hpUpdate();
+            createApple();
         }
-        
     }
     
     /**
@@ -78,10 +102,19 @@ public class MyWorld extends World
         int x = Greenfoot.getRandomNumber(600);
         int y = 0;
         addObject(apple, x, y);
+        appleCounter++;
     }
     
-    public void hpUpdate()
+    /**
+     *  Create a new apple at random
+     */
+    public void createBomb()
     {
-        hpLevel.setValue("hp: " + hp);
+        Bomb bomb = new Bomb();
+        bomb.setSpeed(level);
+        int x = Greenfoot.getRandomNumber(600);
+        int y = 0;
+        addObject(bomb, x, y);
+        
     }
 }

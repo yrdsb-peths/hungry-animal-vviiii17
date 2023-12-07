@@ -9,12 +9,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Elephant extends Actor
 {
     GreenfootSound elephantSound = new GreenfootSound("elephantcub.mp3");
+    GreenfootSound bombSound = new GreenfootSound("bombDrop.mp3");
     GreenfootImage[] idleRight = new GreenfootImage[8];
     GreenfootImage[] idleLeft = new GreenfootImage[8];
     
     // Direction the elephant is facing
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
+    
     /**
      * Constructor - The code that gets run on time when object is created
      */
@@ -80,6 +82,9 @@ public class Elephant extends Actor
         // Remove apple if elephant eats it
         eat();
         
+        // Remove bomb and decrease HP leve if elephant catches it
+        bombing();
+        
         // Animate the elephant
         animateElephant();
     }
@@ -97,6 +102,21 @@ public class Elephant extends Actor
             world.createApple();
             world.increaseScore();
             elephantSound.play();
+        }
+    }
+    
+    /**
+     * HP level deacreases 1 if an bomb is catched
+     */
+    public void bombing()
+    {
+        if(isTouching(Bomb.class))
+        {
+            removeTouching(Bomb.class);
+            MyWorld world = (MyWorld) getWorld();
+            world.act();
+            world.hpDecrease();
+            bombSound.play();
         }
     }
 }
