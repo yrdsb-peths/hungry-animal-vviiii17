@@ -17,6 +17,9 @@ public class Elephant extends Actor
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
     
+    // Speed the elephant moves at
+    int speed = 2;
+    
     /**
      * Constructor - The code that gets run on time when object is created
      */
@@ -70,12 +73,12 @@ public class Elephant extends Actor
         // Add your action code here.
         if(Greenfoot.isKeyDown("left"))
         {
-            move(-2);
+            move(-speed);
             facing = "left";
         }
         else if(Greenfoot.isKeyDown("right"))
         {
-            move(2);
+            move(speed);
             facing = "right";
         }
         
@@ -102,6 +105,10 @@ public class Elephant extends Actor
             world.createApple();
             world.increaseScore();
             elephantSound.play();
+            if(world.score % 5 == 0)
+            {
+                speed++;
+            }
         }
     }
     
@@ -116,6 +123,7 @@ public class Elephant extends Actor
             MyWorld world = (MyWorld) getWorld();
             world.act();
             world.hpDecrease();
+            //world.hpIncrease();
             bombSound.play();
         }
     }
